@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ChannelHandler.Sharable
-public class WsHandShakeEventHandler extends SimpleUserEventChannelHandler<WebSocketServerProtocolHandler.HandshakeComplete> {
+public class HandShakeEventHandler extends SimpleUserEventChannelHandler<WebSocketServerProtocolHandler.HandshakeComplete> {
 
     // 建立连接后进行参数校验
     @Override

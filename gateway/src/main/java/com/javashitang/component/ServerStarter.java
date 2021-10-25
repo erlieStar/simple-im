@@ -1,4 +1,4 @@
-package com.javashitang.component.others;
+package com.javashitang.component;
 
 import com.javashitang.wshandler.GatewayChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
@@ -33,19 +33,24 @@ public class ServerStarter {
 
     @PostConstruct
     public void init() {
-        boss = new NioEventLoopGroup();
-        work = new NioEventLoopGroup();
+        if (!"Linux".equals(System.getProperty("os.name"))) {
+            boss = new NioEventLoopGroup(1);
+            work = new NioEventLoopGroup();
+        } else {
+            boss = new EpollEventLoopGroup(1);
+            work = new EpollEventLoopGroup();
+        }
         startServer();
     }
 
     public void startServer() {
-        boss = new EpollEventLoopGroup();
-        work = new EpollEventLoopGroup();
         ServerBootstrap bootstrap = new ServerBootstrap();
         ChannelFuture future = bootstrap.group(boss, work).handler(new LoggingHandler(LogLevel.DEBUG))
                 .channel(NioServerSocketChannel.class)
-                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT).childOption(ChannelOption.TCP_NODELAY, true)
-                .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT).childHandler(gatewayChannelInitializer)
+                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                .childOption(ChannelOption.TCP_NODELAY, true)
+                .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                .childHandler(gatewayChannelInitializer)
                 .bind(serverPort);
 
         future.addListener(f -> {

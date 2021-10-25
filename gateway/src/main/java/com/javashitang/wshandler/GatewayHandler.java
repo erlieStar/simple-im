@@ -1,10 +1,15 @@
 package com.javashitang.wshandler;
 
 import com.javashitang.domain.ChatMessage;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.springframework.stereotype.Component;
 
-public class AsyncWsInboundHandler extends SimpleChannelInboundHandler<ChatMessage> {
+@Component
+@ChannelHandler.Sharable
+public class GatewayHandler extends SimpleChannelInboundHandler<ChatMessage> {
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ChatMessage msg) throws Exception {
 

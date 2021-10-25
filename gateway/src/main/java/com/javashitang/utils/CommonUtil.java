@@ -1,6 +1,6 @@
 package com.javashitang.utils;
 
-import com.javashitang.component.others.ChannelContextHolder;
+import com.javashitang.component.ChannelContextHolder;
 import com.javashitang.domain.ChatMessage;
 import com.javashitang.tool.JsonConvert;
 import io.netty.channel.Channel;

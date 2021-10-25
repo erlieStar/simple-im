@@ -42,8 +42,8 @@ public class EnumDefine {
 
         // 指令用到的类型
         ACK((byte) 53, "消息确认"),
-        NACK((byte) 54, "消息拒绝")
-        ;
+        NACK((byte) 54, "消息拒绝");
+        
         private final byte value;
         private final String name;
 

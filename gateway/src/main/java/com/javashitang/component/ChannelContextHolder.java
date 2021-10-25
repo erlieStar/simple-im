@@ -1,4 +1,4 @@
-package com.javashitang.component.others;
+package com.javashitang.component;
 
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
